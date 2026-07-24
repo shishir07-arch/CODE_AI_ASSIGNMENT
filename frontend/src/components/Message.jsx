@@ -5,7 +5,7 @@ import rehypeHighlight from 'rehype-highlight';
 import 'highlight.js/styles/github-dark.css';
 
 const CodeBlock = ({ className, children }) => {
-  const code = String(children).replace(/\n$/, '');
+  const code = String(children ?? '').replace(/\n$/, '');
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(code);
@@ -29,7 +29,7 @@ const Message = ({ message, isUser }) => {
     <div style={{ display: 'flex', justifyContent: isUser ? 'flex-end' : 'flex-start', marginBottom: '12px' }}>
       <div className={`bubble ${isUser ? 'user' : 'ai'}`}>
         <div className="markdown">
-          <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeHighlight]} components={{
+          <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[]} components={{
             code({node, inline, className, children, ...props}){
               if(inline) return <code {...props} style={{background:'rgba(255,255,255,0.02)',padding:'2px 6px',borderRadius:6}}>{children}</code>
               return <CodeBlock className={className}>{children}</CodeBlock>
