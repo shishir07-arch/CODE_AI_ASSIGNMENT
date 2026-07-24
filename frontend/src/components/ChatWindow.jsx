@@ -26,10 +26,7 @@ const ChatWindow = ({ user }) => {
 
     try {
       const response = await askTutor({ question: userMessage.text });
-
-      console.log("TUTOR RESPONSE:", response);
-
-      const answer = response?.data?.data?.answer || 'No answer returned.';
+      const answer = response?.data?.answer || 'No answer returned.';
       setMessages((prev) => [...prev, { id: Date.now() + 1, text: answer, isUser: false }]);
     } catch (err) {
       setError(err.message || 'Unable to reach tutor service');
